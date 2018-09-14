@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silent Dump</title>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="container-fluid">
+    <br>
+    <div id="dump" class="col-xs-12"></div>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script>
+    var socket = io();
+    var dump = document.getElementById('dump');
+    socket.on('dump', function (text) {
+      var e = document.createElement('pre');
+      e.innerHTML = text;
+      if (dump.children.length > 200) {
+        dump.removeChild(dump.lastChild);
+      }
+      dump.insertBefore(e, dump.firstChild);
+    });
+  </script>
+</body>
+<html>
